@@ -123,9 +123,9 @@ autoload :OpenSSL, 'openssl'
 # === Max Requests
 #
 # The number of requests that should be made before opening a new connection.
-# Typically many keep-alive capable servers tune this to 100 or less, so the
-# 101st request will fail with ECONNRESET. If unset (default), this value has no
-# effect, if set, connections will be reset on the request after max_requests.
+# Typically many keep-alive capable servers tune this to 100 (default) or less, so the
+# 101st request will fail with ECONNRESET. If set to nil, this value has no
+# effect, if set to int, connections will be reset on the request after max_requests.
 #
 # === Open Timeout
 #
@@ -490,7 +490,7 @@ class Net::HTTP::Persistent
     @open_timeout     = nil
     @read_timeout     = nil
     @idle_timeout     = 5
-    @max_requests     = nil
+    @max_requests     = 100
     @socket_options   = []
 
     @socket_options << [Socket::IPPROTO_TCP, Socket::TCP_NODELAY, 1] if
